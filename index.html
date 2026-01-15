@@ -2,26 +2,94 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>我的个人网站</title>
+  <title>互动小游戏</title>
+
   <style>
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .screen {
+      display: none;
       text-align: center;
-      padding-top: 100px;
+      width: 100%;
     }
-    h1 {
-      color: #333;
+
+    .active {
+      display: block;
     }
-    p {
-      color: #666;
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    input {
+      width: 60%;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    video {
+      width: 80%;
+      max-width: 800px;
     }
   </style>
 </head>
+
 <body>
-  <img src="wind chime.png" width="120" style="border-radius: 50%;">
-  <h1>你好，我是 XXX</h1>
-  <p>欢迎来到我的个人网站</p>
-  <p>这是用 GitHub Pages 搭建的</p>
+
+  <!-- ① 封面 -->
+  <div id="cover" class="screen active">
+    <h1>欢迎来到互动游戏</h1>
+    <button onclick="startGame()">开始</button>
+  </div>
+
+  <!-- ② 对话输入 -->
+  <div id="dialog" class="screen">
+    <p>请输入任意内容：</p>
+    <input id="userInput" placeholder="在这里输入..." />
+    <br><br>
+    <button onclick="confirmInput()">确认</button>
+  </div>
+
+  <!-- ③ 视频播放 -->
+  <div id="videoScreen" class="screen">
+    <video id="gameVideo" controls>
+      <source src="video.mp4" type="video/mp4">
+      你的浏览器不支持视频播放
+    </video>
+  </div>
+
+  <script>
+    function startGame() {
+      document.getElementById("cover").classList.remove("active");
+      document.getElementById("dialog").classList.add("active");
+    }
+
+    function confirmInput() {
+      const text = document.getElementById("userInput").value;
+
+      if (text.trim() === "") {
+        alert("请输入内容");
+        return;
+      }
+
+      document.getElementById("dialog").classList.remove("active");
+      document.getElementById("videoScreen").classList.add("active");
+
+      document.getElementById("gameVideo").play();
+    }
+  </script>
+
 </body>
 </html>
